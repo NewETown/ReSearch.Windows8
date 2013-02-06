@@ -71,7 +71,7 @@
                             }
                             var metaArray = q.split(",");
                             metaArray.forEach(function (a) {
-                                a = a.trim();
+                                //a = a.trim();
                                 console.log(a);
                             });
                             WinJS.Navigation.navigate("/pages/results/results.html", { terms: options.terms, meta: q });
