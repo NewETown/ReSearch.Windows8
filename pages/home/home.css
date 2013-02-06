@@ -1,0 +1,44 @@
+﻿.homepage #searchParent {
+    display:-ms-grid;   
+    -ms-grid-columns:1fr;
+    -ms-grid-rows:200px 1fr;
+}
+
+.homepage body {
+    background-color: rgb(179,179,179);
+    color:rgb(179,179,179);
+}
+
+.homepage #searchBar {
+    -ms-grid-column-align:center;
+    -ms-grid-row-align:center;
+    -ms-grid-row:2;
+}
+
+.homepage #reSpan {
+    font-weight:bold;
+    font-size:40px;
+    height: 66px;
+    width: 66px;
+    vertical-align: -16px;
+}
+
+.homepage #searchTerms {
+    margin-top:12px;
+    width:400px;
+    height:60px;
+    font-size:40px;
+}
+
+.homepage #searchBtn{
+    border-style:none;
+    width:66px;
+    height:66px;
+    font-size:72px;
+    line-height:72px;
+    vertical-align: -16px;
+}
+    .homepage #searchBtn img {
+        width: 66px;
+        height: 66px;
+    }
