@@ -64,16 +64,45 @@
                     section: "selection",
                     click: function () {
                         resultsListView.selection.getItems().then(function (e) {
-                            var q = options.meta;
+                            var q = (options.meta = "undefined" ? "" : options.meta);
                             for (var i = 0; i < e.length; i++) {
                                 var keywords = e[i].data.Keywords;
-                                q += " " + (keywords != "" ? keywords : e[i].data.Title);
+                                keywords = keywords.replace(/, /g, ",");
+                                q += (keywords != "" ? keywords.trim() + "," : e[i].data.Title.trim() + ",");
                             }
                             var metaArray = q.split(",");
-                            metaArray.forEach(function (a) {
-                                //a = a.trim();
-                                console.log(a);
-                            });
+
+                            // This is one SEXY method from http://stackoverflow.com/a/3579899/1589521
+                            // Also, because I don't have to turn this code in to a boss, I can use the word sexy in my comments
+                            Array.prototype.byCount = function () {
+                                var itm, a = [], L = this.length, o = {};
+                                for (var i = 0; i < L; i++) {
+                                    itm = this[i];
+                                    if (!itm) continue;
+                                    if (o[itm] == undefined) o[itm] = 1;
+                                    else ++o[itm];
+                                }
+                                for (var p in o) a[a.length] = p;
+                                return a.sort(function (a, b) {
+                                    return o[b] - o[a];
+                                });
+                            }
+
+                            metaArray = metaArray.byCount();
+                            
+                            q = "";
+
+                            for(var i = 0; i < metaArray.length; i++) {
+                                q += metaArray[i] + ",";
+                            };
+                            /* TO DO:
+                             * We have successfully put the meta tags in to a distinct list sorted by frequency.
+                             * We have to decide how many we want to take (Top 20?)
+                             * Also, I think we should look in to splitting the tags up in to individual words.
+                             * This might be more effective in zeroing down.
+                             ***********************************************************************************/
+                            /* TO DO: Delete this log command */
+                            console.log(q);
                             WinJS.Navigation.navigate("/pages/results/results.html", { terms: options.terms, meta: q });
                         }, function (err) {
                             debugger;
